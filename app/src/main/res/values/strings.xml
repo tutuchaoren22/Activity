@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Activity</string>
     <string name="activity_practices">Activity Practices</string>
+    <string name="contact">选择联系人</string>
 </resources>
