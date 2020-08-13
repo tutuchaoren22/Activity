@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <dimen name="button_width">150dp</dimen>
+    <dimen name="margin_between_buttons">80dp</dimen>
+    <dimen name="margin_between_text_and_bottom">200dp</dimen>
 </resources>
