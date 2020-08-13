@@ -29,6 +29,16 @@ public class ContactActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        Button lifeCycle = findViewById(R.id.life_cycle);
+        lifeCycle.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ContactActivity.this,LifeCycleActivity.class);
+                        startActivity(intent);
+                    }
+                });
     }
 
 

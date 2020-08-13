@@ -2,4 +2,5 @@
     <string name="app_name">Activity</string>
     <string name="activity_practices">Activity Practices</string>
     <string name="contact">选择联系人</string>
+    <string name="life_cycle">生命周期</string>
 </resources>
