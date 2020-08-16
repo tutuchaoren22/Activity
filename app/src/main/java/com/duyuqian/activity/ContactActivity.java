@@ -35,7 +35,7 @@ public class ContactActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(ContactActivity.this,LifeCycleActivity.class);
+                        Intent intent = new Intent(ContactActivity.this, LifeCycleActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -53,18 +53,29 @@ public class ContactActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
         if (requestCode == REQUEST_SELECT_CONTACT && resultCode == RESULT_OK) {
-            assert data != null;
-            Uri contractUri = data.getData();
-            assert contractUri != null;
-            Cursor phoneCursor = getContentResolver().query(contractUri, null, null, null, null);
-            assert phoneCursor != null;
-            if (phoneCursor.moveToFirst()){
-                String contactName = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                String phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            Cursor phoneCursor = null;
+            try {
+                Uri contractUri = data.getData();
+                if (contractUri != null) {
+                    String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER};
+                    phoneCursor = getContentResolver().query(contractUri, projection, null, null, null);
+                    if (phoneCursor != null) {
+                        if (phoneCursor.moveToFirst()) {
+                            String contactName = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                            String phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                            TextView contactInfo = findViewById(R.id.contact_info);
+                            contactInfo.setText(contactName.concat(phoneNumber));
+                        }
+                    }
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            } finally {
                 phoneCursor.close();
-                TextView contactInfo = findViewById(R.id.contact_info);
-                contactInfo.setText(contactName.concat(phoneNumber) );
             }
         }
     }
